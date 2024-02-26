@@ -50,7 +50,8 @@ go run ./cmd/main.go
 
 ## Notes about the code
 
-- It uses Golang v1.22. The server is uses the builtin `net/http` rather than a web framework.
+- Throughout the project I use the term "Concept" to refer to any noun, gerund or adjective. I probably could have just used the term "thing" 🤣
+- The project uses Golang v1.22. The api uses the builtin `net/http` rather than a web framework.
 - There is no official OpenAI library for Golang 😔. So I just make basic HTTP requests.
 - If you're not familiar with golang:
   - `go.mod` is like package.json
