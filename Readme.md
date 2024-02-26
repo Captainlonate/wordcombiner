@@ -2,7 +2,7 @@
 
 _I wanted to see if I could build / reverse engineer Neil.fun's Infinite Crafting game (just the API portion)._
 
-This Golang API will accept two concepts (probably single-word nouns), and return the "logical combination" of the two things, plus an emoji that should make sense.
+This Golang API basically takes two things ("concepts") and tells you what you'd get if you put them together. It also returns an emoji that closely represents the newly created thing (new "concept").
 
 __Examples:__
 
