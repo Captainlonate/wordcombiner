@@ -1,0 +1,33 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+vendor/
+.idea/
+build/
+
+# Binary files
+bin/
+*.exe
+
+# Dependency directories (remove this if you plan to include dependencies in your repository)
+vendor/
+
+# Environment variables file
+.env
+
+# Compiled Go binary
+*.exe
+
+# Log files
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
