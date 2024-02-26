@@ -61,6 +61,7 @@ go run ./cmd/main.go
   - `go run ./cmd/main.go` is like `npm start`
   - `make` is like `npm run build`
   - You don't need to `npm install`. Just `go run ./cmd/main.go`
+  - There is no `node_modules` folder. When you `go get` code it'll probably download it to `~/go/pkg/mod/`
   - local file imports don't use relative paths. They all start at module root (which is defined in `go.mod`). You don't really import files. Instead you import packages.
   - If a type or function starts with a capital letter, then it's exported outside of it's package. So you won't see any `export` keywords.
   
