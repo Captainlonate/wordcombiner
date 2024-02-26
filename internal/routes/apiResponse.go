@@ -5,19 +5,18 @@ import (
 	"fmt"
 	"net/http"
 
-	ce "captainlonate/wordcombiner/internal/customError"
+	ce "captainlonate/wordcombiner/internal/customerror"
 )
 
 // All API responses must have this structure, regardless of success or failure,
 // regardless of which endpoint or what data. Always 200. Always JSON. Always this structure.
-// Any struct that will ever be placed in the `Data` field of the ApiResponse
-// must begin with DTO_
 type ApiResponse struct {
-	Success bool        `json:"success"`
-	Error   error       `json:"error"`
-	Data    interface{} `json:"data"`
+	Success bool         `json:"success"`
+	Error   *ce.ApiError `json:"error"`
+	Data    interface{}  `json:"data"`
 }
 
+// Constructor function to create a "Success" variant of the ApiResponse struct.
 func apiResponseSuccess(data interface{}) *ApiResponse {
 	return &ApiResponse{
 		Success: true,
@@ -26,6 +25,7 @@ func apiResponseSuccess(data interface{}) *ApiResponse {
 	}
 }
 
+// Constructor function to create a "Failure" variant of the ApiResponse struct.
 func apiResponseFailure(code ce.ErrorCode, message string) *ApiResponse {
 	return &ApiResponse{
 		Success: false,

@@ -1,7 +1,9 @@
 package conceptsdb
 
+// CreateConceptKey creates a key that will be used to store records in Redis.
+// All the records in our Redis database will use keys from this function.
 // CreateConceptKey sorts two strings and joins them with a '+' character.
-// This is used to create a "Concept Key", which is used as the key in Redis.
+// The redis database stores "Concepts", so this function creates "Concept Keys".
 //
 // Example:
 //   - "Fart" + "Dangerous" -> "Dangerous+Fart"

@@ -1,4 +1,4 @@
-BINARY_NAME := goConcepts
+BINARY_NAME := wordcombiner
 OSX_BINARY := ./build/${BINARY_NAME}_osx_arm64
 WIN_BINARY := ./build/${BINARY_NAME}_win_amd64.exe
 ALL_SRC_GO := ./cmd/main.go
@@ -20,3 +20,6 @@ clean:
 	go clean
 	rm -f ${OSX_BINARY}
 	rm -f ${WIN_BINARY}
+
+fmt:
+	go fmt ./...

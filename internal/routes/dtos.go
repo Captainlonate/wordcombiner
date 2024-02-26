@@ -1,7 +1,6 @@
 package routes
 
-// Any struct that will ever be placed in the `Data` field of the ApiResponse
-// must begin with DTO_
+// Data Transfer Object (DTO) that represents the responds from GET /combine
 type DTO_NewConcept struct {
 	Concept     string `json:"concept"`
 	IsFirstTime bool   `json:"is_first"`

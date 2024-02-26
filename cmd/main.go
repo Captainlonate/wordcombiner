@@ -11,6 +11,11 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// Required Environment Variables - Must be set in .env file
+var requiredEnvVariables = []string{
+	"OPENAI_API_KEY", "OPENAI_MODEL",
+}
+
 func main() {
 	// Load environment variables from .env file (uses .env by default)
 	if err := godotenv.Load(); err != nil {
@@ -18,8 +23,7 @@ func main() {
 	}
 
 	// Check if required environment variables exist and have non-empty values
-	requiredVariables := []string{"OPENAI_API_KEY", "OPENAI_MODEL"}
-	for _, key := range requiredVariables {
+	for _, key := range requiredEnvVariables {
 		value := os.Getenv(key)
 		if value == "" {
 			fmt.Printf("Error: Environment variable %s is required but not set\n", key)
@@ -27,7 +31,7 @@ func main() {
 		}
 	}
 
-	// Establish a connection to the redis database
+	// Establish a connection to the redis database. If it fails, the program will exit.
 	conceptsdb.InitializeRedisConnection()
 
 	// Create a new router and start the web server

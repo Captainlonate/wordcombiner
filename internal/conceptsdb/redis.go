@@ -42,6 +42,7 @@ func FetchFromRedis(key string) (string, error) {
 	return retrievedValue, nil
 }
 
+// Adds an entry into Redis.
 func InsertToRedis(key string, value string) error {
 	err := rdb.Set(context.Background(), key, value, 0).Err()
 

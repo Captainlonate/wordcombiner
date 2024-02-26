@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	ce "captainlonate/wordcombiner/internal/customError"
+	ce "captainlonate/wordcombiner/internal/customerror"
 )
 
 // Route handler for GET /combine
@@ -16,6 +16,7 @@ func combineRouteHandler(w http.ResponseWriter, r *http.Request) {
 	conceptOne := r.URL.Query().Get("one")
 	conceptTwo := r.URL.Query().Get("two")
 
+	// The key for the record in Redis (for both fetching and storing)
 	conceptKey := conceptsdb.CreateConceptKey(conceptOne, conceptTwo)
 
 	// Check if there is a match in redis already
@@ -25,7 +26,7 @@ func combineRouteHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Otherwise fetch the combination from OpenAI
+	// If not in Redis, get the combination from OpenAI
 	chatCompletion, err := oai.GetCombinationFromOpenAI(conceptOne, conceptTwo)
 	if err != nil || len(chatCompletion.Choices) == 0 {
 		sendJSON(w, apiResponseFailure(ce.OpenAIAPIErrorCode, "Error getting combination from OpenAI"))

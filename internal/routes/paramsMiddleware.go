@@ -1,7 +1,7 @@
 package routes
 
 import (
-	ce "captainlonate/wordcombiner/internal/customError"
+	ce "captainlonate/wordcombiner/internal/customerror"
 	"net/http"
 )
 

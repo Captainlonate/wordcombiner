@@ -1,4 +1,4 @@
-package customError
+package customerror
 
 import "fmt"
 
@@ -10,6 +10,11 @@ const OpenAIInvalidResponseErrorCode ErrorCode = "openai_invalid_response"
 const BadRequestQueryParam ErrorCode = "bad_or_missing_query_param"
 const UnknownErrorCode ErrorCode = "unknown_error"
 
+// When handling errors and responding to the client, we won't pass
+// error status codes directly to the client. Instead, we'll always
+// return a 200 status code, and one of these hand tailored custom error objects.
+// Every error should have a human readable message, and a machine readable error code.
+// It will make it easier for the client to "switch" on the error code.
 type ApiError struct {
 	Code            ErrorCode `json:"error_code"`
 	FriendlyMessage string    `json:"human_msg"`
