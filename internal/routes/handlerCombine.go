@@ -10,9 +10,9 @@ import (
 	ce "captainlonate/wordcombiner/internal/customerror"
 )
 
-// Route handler for GET /combine
+// This is the route handler, which handles all requests to "GET /combine"
 func combineRouteHandler(w http.ResponseWriter, r *http.Request) {
-	// Parse query params
+	// Parse query params (upstream middleware will ensure they are set)
 	conceptOne := r.URL.Query().Get("one")
 	conceptTwo := r.URL.Query().Get("two")
 
@@ -22,7 +22,10 @@ func combineRouteHandler(w http.ResponseWriter, r *http.Request) {
 	// Check if there is a match in redis already
 	newConceptFromRedis, err := conceptsdb.FetchFromRedis(conceptKey)
 	if newConceptFromRedis != "" && err == nil {
-		processRedisHit(w, conceptKey, conceptOne, conceptTwo, newConceptFromRedis)
+		sendJSON(w, apiResponseSuccess(DTO_NewConcept{
+			Concept:     newConceptFromRedis,
+			IsFirstTime: false,
+		}))
 		return
 	}
 
@@ -33,22 +36,6 @@ func combineRouteHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	processOpenAIHit(w, conceptKey, conceptOne, conceptTwo, chatCompletion)
-}
-
-func processRedisHit(w http.ResponseWriter, conceptKey, conceptOne, conceptTwo, newConcept string) {
-	sendJSON(w, apiResponseSuccess(DTO_NewConcept{
-		Concept:     newConcept,
-		IsFirstTime: false,
-	}))
-
-	// Debug logging to terminal
-	fmt.Println("===============================================")
-	fmt.Println("====== 👨‍🌾🐑🍄 New Request (Redis) 🧺🌾🐐 ======")
-	fmt.Println("===============================================")
-	fmt.Printf("'%s' + '%s' = '%s'\n", conceptOne, conceptTwo, newConcept)
-	fmt.Printf("\tRedis Key: '%s'\n", conceptKey)
-	fmt.Println("")
-	fmt.Println("")
 }
 
 func processOpenAIHit(w http.ResponseWriter, conceptKey string, conceptOne string, conceptTwo string, chatCompletion oai.ChatCompletion) {
@@ -66,7 +53,7 @@ func processOpenAIHit(w http.ResponseWriter, conceptKey string, conceptOne strin
 	// Debug logging to terminal
 	createdTime := time.Unix(chatCompletion.Created, 0)
 	fmt.Println("================================================")
-	fmt.Println("====== 👨‍🌾🐑🍄 New Request (OpenAI) 🧺🌾🐐 ======")
+	fmt.Println("====== 👨‍🌾🐑🍄 New Request To OpenAI 🧺🌾🐐 ======")
 	fmt.Println("================================================")
 	fmt.Printf("'%s' + '%s' = '%s'\n", conceptOne, conceptTwo, newConcept)
 	fmt.Printf("\tID: %s\n", chatCompletion.ID)

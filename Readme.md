@@ -48,6 +48,8 @@ docker-compose -f ./docker-compose.yml up -d
 go run ./cmd/main.go
 ```
 
+__Alternatively, if you have `make` installed, you can just use `make dev`, `make fmt` and `make`__
+
 ## Notes about the code
 
 - Throughout the project I use the term "Concept" to refer to any noun, gerund or adjective. I probably could have just used the term "thing" 🤣

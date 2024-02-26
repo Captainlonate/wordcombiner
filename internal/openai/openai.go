@@ -73,7 +73,7 @@ func GetCombinationFromOpenAI(wordOne string, wordTwo string) (ChatCompletion, e
 	client := &http.Client{}
 	resp, err := client.Do(requestObject)
 	if err != nil {
-		fmt.Println("Error making OpenAI request:", err)
+		fmt.Println("Error executing OpenAI request:", err)
 		return ChatCompletion{}, err
 	}
 	defer resp.Body.Close()
